@@ -1,0 +1,96 @@
+
+package javaapplication5;
+
+import static java.util.Collections.list;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import java.util.Scanner;
+
+
+public class JavaApplication5 {
+
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner sc=new Scanner(System.in);
+       int t=sc.nextInt();
+        //LinkedList<Integer> linkedlist= new LinkedList<>();
+      LinkedList<Character> operator= new LinkedList<>();
+     LinkedList<Character> operand= new LinkedList<>();
+        for(int i=0;i<t;i++){
+          String x=sc.next();
+          char[]a=x.toCharArray();
+          for(int j=0;j<a.length;j++)
+           {
+              
+               if(a[j]=='('){
+                   operator.add(a[j]);
+                 } 
+               else if(a[j]=='/'||a[j]=='*'||a[j]=='-'||a[j]=='+'||a[j]=='^')
+               {
+                   if(a[j]=='^')
+                   {
+                      
+                      operator.add(a[j]);
+                   }
+                   else if(a[j]=='*'||a[j]=='/')
+                   {
+                      char q=operator.getLast();
+                      if(q=='^')
+                      {
+                          operand.add(q);
+                          operator.removeLast();
+                          operator.add(a[j]);
+                      }
+                      else
+                          operator.add(a[j]);
+                      
+                   }
+                   else 
+                   {
+                      char q=operator.getLast();
+                      if(q=='^'||q=='/'||q=='*')
+                      {
+                          operand.add(q);
+                          operator.removeLast();
+                          operator.add(a[j]);
+                      }
+                      else
+                          operator.add(a[j]);
+                    }
+                   
+                   }
+               
+               else if(a[j]==')')
+               {
+                   while(operator.getLast()!='(')
+                   {
+                       char q=operator.getLast();
+                       operand.add(q);
+                       operator.removeLast();
+                   }
+                   operator.removeLast();
+                   
+               }
+               else
+                   operand.add(a[j]);
+                
+               
+          }
+          for(int j=0;j<operand.size();j++)
+          {
+              System.out.print(operand.get(j));
+          }
+          System.out.println();
+          operand.clear();
+          operator.clear();
+              
+        }
+          
+     
+    
+       
+    }
+    
+}
